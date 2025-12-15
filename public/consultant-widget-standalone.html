@@ -13,42 +13,20 @@
     }
 
     @keyframes fab-bounce-in {
-      0% { 
-        opacity: 0; 
-        transform: scale(0.3); 
-      }
-      50% { 
-        transform: scale(1.05); 
-      }
-      70% { 
-        transform: scale(0.9); 
-      }
-      100% { 
-        opacity: 1; 
-        transform: scale(1); 
-      }
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     @keyframes card-slide-up {
-      from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes pulse-ring {
-      0% {
-        transform: scale(1);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
     }
 
     @keyframes spin {
@@ -75,13 +53,8 @@
       animation: fab-bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     }
 
-    .fab-button:hover {
-      transform: scale(1.1);
-    }
-
-    .fab-button.light {
-      background-color: #10B981;
-    }
+    .fab-button:hover { transform: scale(1.1); }
+    .fab-button.light { background-color: #10B981; }
 
     .pulse-ring {
       position: absolute;
@@ -156,9 +129,7 @@
       color: #1A2332;
     }
 
-    .widget-content {
-      padding: 20px 24px;
-    }
+    .widget-content { padding: 20px 24px; }
 
     .header-section {
       display: flex;
@@ -221,9 +192,7 @@
       margin-bottom: 4px;
     }
 
-    .widget-card.light .widget-title {
-      color: #1A2332;
-    }
+    .widget-card.light .widget-title { color: #1A2332; }
 
     .widget-description {
       font-size: 14px;
@@ -231,9 +200,7 @@
       line-height: 1.5;
     }
 
-    .widget-card.light .widget-description {
-      color: #4b5563;
-    }
+    .widget-card.light .widget-description { color: #4b5563; }
 
     .section-title {
       font-size: 14px;
@@ -242,13 +209,9 @@
       margin-bottom: 12px;
     }
 
-    .widget-card.light .section-title {
-      color: #4b5563;
-    }
+    .widget-card.light .section-title { color: #4b5563; }
 
-    .messengers-section {
-      margin-bottom: 24px;
-    }
+    .messengers-section { margin-bottom: 24px; }
 
     .button-list {
       display: flex;
@@ -270,18 +233,14 @@
       transition: all 0.2s;
     }
 
-    .messenger-button:hover {
-      background-color: rgba(45, 63, 82, 0.5);
-    }
+    .messenger-button:hover { background-color: rgba(45, 63, 82, 0.5); }
 
     .widget-card.light .messenger-button {
       background-color: #f9fafb;
       border-color: #e5e7eb;
     }
 
-    .widget-card.light .messenger-button:hover {
-      background-color: #f3f4f6;
-    }
+    .widget-card.light .messenger-button:hover { background-color: #f3f4f6; }
 
     .messenger-button:disabled {
       opacity: 0.5;
@@ -317,9 +276,7 @@
       transition: color 0.2s;
     }
 
-    .widget-card.light .messenger-text {
-      color: #1A2332;
-    }
+    .widget-card.light .messenger-text { color: #1A2332; }
 
     .messenger-button:hover .messenger-text.telegram { color: #0088CC; }
     .messenger-button:hover .messenger-text.whatsapp { color: #25D366; }
@@ -364,9 +321,7 @@
       border-color: #e5e7eb;
     }
 
-    .widget-card.light .phone-button:hover {
-      background-color: #e5e7eb;
-    }
+    .widget-card.light .phone-button:hover { background-color: #e5e7eb; }
 
     .phone-icon {
       width: 20px;
@@ -376,13 +331,8 @@
       transition: transform 0.2s;
     }
 
-    .widget-card.light .phone-icon {
-      color: #10B981;
-    }
-
-    .phone-button:hover .phone-icon {
-      transform: scale(1.1);
-    }
+    .widget-card.light .phone-icon { color: #10B981; }
+    .phone-button:hover .phone-icon { transform: scale(1.1); }
 
     .phone-number {
       font-size: 16px;
@@ -391,53 +341,25 @@
       margin-bottom: 4px;
     }
 
-    .widget-card.light .phone-number {
-      color: #1A2332;
-    }
+    .widget-card.light .phone-number { color: #1A2332; }
 
     .phone-label {
       font-size: 12px;
       color: #A8B5C8;
     }
 
-    .widget-card.light .phone-label {
-      color: #4b5563;
-    }
+    .widget-card.light .phone-label { color: #4b5563; }
 
-    .spinner {
-      animation: spin 1s linear infinite;
-    }
+    .spinner { animation: spin 1s linear infinite; }
 
     @media (max-width: 640px) {
-      .widget-content {
-        padding: 16px 20px;
-      }
-
-      .avatar {
-        width: 64px;
-        height: 64px;
-      }
-
-      .widget-title {
-        font-size: 18px;
-      }
-
-      .messenger-button {
-        padding: 12px;
-      }
-
-      .messenger-icon {
-        width: 40px;
-        height: 40px;
-      }
-
-      .messenger-text {
-        font-size: 16px;
-      }
-
-      .phone-number {
-        font-size: 14px;
-      }
+      .widget-content { padding: 16px 20px; }
+      .avatar { width: 64px; height: 64px; }
+      .widget-title { font-size: 18px; }
+      .messenger-button { padding: 12px; }
+      .messenger-icon { width: 40px; height: 40px; }
+      .messenger-text { font-size: 16px; }
+      .phone-number { font-size: 14px; }
     }
 
     #chat24-iframe-container,
@@ -453,21 +375,16 @@
 
   <script>
     (function() {
-      const THEME_STORAGE_KEY = 'consultantWidgetTheme';
-      const CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
-      let currentTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
-      let isOpen = false;
-      let chat2deskStatus = 'idle';
+      var CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
+      var isOpen = false;
+      var chat2deskStatus = 'idle';
 
       function checkClosedState() {
-        const closedUntil = localStorage.getItem(CLOSE_STORAGE_KEY);
+        var closedUntil = localStorage.getItem(CLOSE_STORAGE_KEY);
         if (closedUntil) {
-          const closedTime = parseInt(closedUntil, 10);
-          if (Date.now() < closedTime) {
-            return true;
-          } else {
-            localStorage.removeItem(CLOSE_STORAGE_KEY);
-          }
+          var closedTime = parseInt(closedUntil, 10);
+          if (Date.now() < closedTime) return true;
+          localStorage.removeItem(CLOSE_STORAGE_KEY);
         }
         return false;
       }
@@ -482,7 +399,7 @@
         window.chat24_static_files_domain = "https://storage.chat2desk.com/";
         window.lang = "ru";
 
-        const timeout = setTimeout(function() {
+        var timeout = setTimeout(function() {
           if (chat2deskStatus === 'loading') {
             chat2deskStatus = 'error';
             updateWidget();
@@ -492,7 +409,7 @@
         fetch(window.chat24_url + "/packs/manifest.json?nocache=" + new Date().getTime())
           .then(function(res) { return res.json(); })
           .then(function(data) {
-            const chat24Script = document.createElement("script");
+            var chat24Script = document.createElement("script");
             chat24Script.type = "text/javascript";
             chat24Script.async = true;
             chat24Script.src = window.chat24_url + data["application.js"];
@@ -522,10 +439,10 @@
       }
 
       function hideChat2DeskWidget() {
-        const existingStyle = document.getElementById('chat2desk-hide-style');
+        var existingStyle = document.getElementById('chat2desk-hide-style');
         if (existingStyle) return;
 
-        const style = document.createElement('style');
+        var style = document.createElement('style');
         style.id = 'chat2desk-hide-style';
         style.textContent = '#chat24-iframe-container, #chat24-button, [id^="chat24"] { display: none !important; visibility: hidden !important; }';
         document.head.appendChild(style);
@@ -533,17 +450,15 @@
 
       function openChat2Desk() {
         if (chat2deskStatus === 'ready' && window.chat2desk && window.chat2desk.open) {
-          const hideStyle = document.getElementById('chat2desk-hide-style');
-          if (hideStyle) {
-            hideStyle.remove();
-          }
+          var hideStyle = document.getElementById('chat2desk-hide-style');
+          if (hideStyle) hideStyle.remove();
           window.chat2desk.open();
         }
       }
 
       function handleClose() {
         isOpen = false;
-        const closedUntil = Date.now() + (24 * 60 * 60 * 1000);
+        var closedUntil = Date.now() + (24 * 60 * 60 * 1000);
         localStorage.setItem(CLOSE_STORAGE_KEY, closedUntil.toString());
         updateWidget();
       }
@@ -554,19 +469,18 @@
       }
 
       function updateWidget() {
-        const container = document.getElementById('consultantWidget');
-        const themeClass = currentTheme === 'light' ? 'light' : '';
+        var container = document.getElementById('consultantWidget');
         
         if (!isOpen) {
-          container.innerHTML = '<button class="fab-button ' + themeClass + '" onclick="window.consultantWidgetToggle()" aria-label="Открыть виджет консультанта"><div class="pulse-ring"></div><svg class="fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>';
+          container.innerHTML = '<button class="fab-button" onclick="window.consultantWidgetToggle()" aria-label="Открыть виджет консультанта"><div class="pulse-ring"></div><svg class="fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>';
         } else {
-          const chatIconContent = chat2deskStatus === 'loading' 
-            ? '<svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>'
+          var chatIconContent = chat2deskStatus === 'loading' 
+            ? '<svg class="spinner" style="width:24px;height:24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>'
             : chat2deskStatus === 'error'
-            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
-            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+            ? '<svg style="width:24px;height:24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+            : '<svg style="width:24px;height:24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
 
-          const chatStatus = chat2deskStatus === 'loading'
+          var chatStatus = chat2deskStatus === 'loading'
             ? '<div class="chat-status">Загрузка...</div>'
             : chat2deskStatus === 'error'
             ? '<div class="chat-status error">Ошибка подключения</div>'
@@ -574,7 +488,7 @@
 
           container.innerHTML = '\
             <div class="overlay" onclick="window.consultantWidgetClose()"></div>\
-            <div class="widget-card ' + themeClass + '">\
+            <div class="widget-card">\
               <button class="close-button" onclick="window.consultantWidgetClose()" aria-label="Закрыть виджет">\
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\
                   <line x1="18" y1="6" x2="6" y2="18"></line>\
