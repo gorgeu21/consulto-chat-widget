@@ -30,20 +30,33 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
   const [currentTheme, setCurrentTheme] = useState<Theme>(theme);
 
   useEffect(() => {
-    const closedUntil = localStorage.getItem('consultantWidgetClosedUntil');
-    if (closedUntil) {
-      const closedTime = parseInt(closedUntil, 10);
-      if (Date.now() < closedTime) {
-        return;
-      } else {
-        localStorage.removeItem('consultantWidgetClosedUntil');
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const closedUntil = localStorage.getItem('consultantWidgetClosedUntil');
+      if (closedUntil) {
+        const closedTime = parseInt(closedUntil, 10);
+        if (Date.now() < closedTime) {
+          return;
+        } else {
+          localStorage.removeItem('consultantWidgetClosedUntil');
+        }
       }
+    } catch (e) {
+      console.warn('localStorage недоступен:', e);
     }
 
     initChat2Desk();
   }, []);
 
   const initChat2Desk = () => {
+    if (typeof window === 'undefined') return;
+    if (document.querySelector('script[src*="livechatv2.chat2desk.com"]')) {
+      setChat2deskStatus('ready');
+      hideChat2DeskWidget();
+      return;
+    }
+
     setChat2deskStatus('loading');
     
     window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
@@ -53,13 +66,14 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
     window.lang = "ru";
 
     const timeout = setTimeout(() => {
-      if (chat2deskStatus === 'loading') {
-        setChat2deskStatus('error');
-      }
+      setChat2deskStatus('error');
     }, 30000);
 
     fetch(`${window.chat24_url}/packs/manifest.json?nocache=${new Date().getTime()}`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Не удалось загрузить manifest');
+        return res.json();
+      })
       .then(data => {
         const chat24Script = document.createElement("script");
         chat24Script.type = "text/javascript";
@@ -81,13 +95,17 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
 
         document.body.appendChild(chat24Script);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error('Ошибка загрузки Chat2Desk:', error);
         clearTimeout(timeout);
         setChat2deskStatus('error');
       });
   };
 
   const hideChat2DeskWidget = () => {
+    if (typeof document === 'undefined') return;
+    if (document.getElementById('chat2desk-hide-style')) return;
+
     const style = document.createElement('style');
     style.id = 'chat2desk-hide-style';
     style.textContent = `
@@ -102,6 +120,7 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
   };
 
   const openChat2Desk = () => {
+    if (typeof window === 'undefined') return;
     if (chat2deskStatus === 'ready' && window.chat2desk?.open) {
       const hideStyle = document.getElementById('chat2desk-hide-style');
       if (hideStyle) {
@@ -113,8 +132,12 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
 
   const handleClose = () => {
     setIsOpen(false);
-    const closedUntil = Date.now() + (24 * 60 * 60 * 1000);
-    localStorage.setItem('consultantWidgetClosedUntil', closedUntil.toString());
+    try {
+      const closedUntil = Date.now() + (24 * 60 * 60 * 1000);
+      localStorage.setItem('consultantWidgetClosedUntil', closedUntil.toString());
+    } catch (e) {
+      console.warn('Не удалось сохранить в localStorage:', e);
+    }
   };
 
   const toggleOpen = () => {
