@@ -1,128 +1,219 @@
-/* Updated: 2025-12-15T11:53:42.985Z */
-/* Updated: 2025-12-15T11:53:12.175Z */
-/* Updated: 2025-12-15T11:52:54.886Z */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+@theme {
+  --color-background: #1A2332;
+  --color-foreground: #FFFFFF;
+
+  --color-card: #1A2332;
+  --color-card-foreground: #FFFFFF;
+
+  --color-popover: #1A2332;
+  --color-popover-foreground: #FFFFFF;
+
+  --color-primary: #FFFFFF;
+  --color-primary-foreground: #1A2332;
+
+  --color-secondary: #2D3F52;
+  --color-secondary-foreground: #FFFFFF;
+
+  --color-muted: #2D3F52;
+  --color-muted-foreground: #A8B5C8;
+
+  --color-accent: #2D3F52;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  --color-border: #2D3F52;
+  --color-input: #2D3F52;
+  --color-ring: #A8B5C8;
+
+  --color-chart-1: #e67e22;
+  --color-chart-2: #2d8659;
+  --color-chart-3: #1e3a5f;
+  --color-chart-4: #f1c40f;
+  --color-chart-5: #e74c3c;
+
+  --color-sidebar: #1A2332;
+  --color-sidebar-foreground: #FFFFFF;
+  --color-sidebar-primary: #FFFFFF;
+  --color-sidebar-primary-foreground: #1A2332;
+  --color-sidebar-accent: #2D3F52;
+  --color-sidebar-accent-foreground: #FFFFFF;
+  --color-sidebar-border: #2D3F52;
+  --color-sidebar-ring: #A8B5C8;
+
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  --color-widget-bg-primary: #1A2332;
+  --color-widget-overlay-bg: #000000;
+  --color-widget-text-primary: #FFFFFF;
+  --color-widget-text-secondary: #A8B5C8;
+  --color-widget-border: #2D3F52;
+  --color-telegram-brand: #0088CC;
+  --color-whatsapp-brand: #25D366;
+  --color-chat-blue: #00A8E8;
+  --color-phone-button-bg: #1F2E3F;
+  --color-phone-button-hover: #2A3B50;
+  --color-avatar-ring: #2D3F52;
+  --color-status-indicator: #25D366;
+
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --shadow-widget: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-messenger-icon: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  --animate-pulse-soft: pulse-soft 2000ms ease-in-out infinite;
 }
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+/*
+  The default border color has changed to currentColor in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  :root {
+    --background: var(--color-widget-bg-primary);
+    --foreground: var(--color-widget-text-primary);
+    --card: var(--color-widget-bg-primary);
+    --card-foreground: var(--color-widget-text-primary);
+    --popover: var(--color-widget-bg-primary);
+    --popover-foreground: var(--color-widget-text-primary);
+    --primary: var(--color-widget-text-primary);
+    --primary-foreground: var(--color-widget-bg-primary);
+    --secondary: var(--color-widget-border);
+    --secondary-foreground: var(--color-widget-text-primary);
+    --muted: var(--color-widget-border);
+    --muted-foreground: var(--color-widget-text-secondary);
+    --accent: var(--color-widget-border);
+    --accent-foreground: var(--color-widget-text-primary);
+    --destructive: var(--color-destructive);
+    --destructive-foreground: var(--color-destructive-foreground);
+    --border: var(--color-widget-border);
+    --input: var(--color-widget-border);
+    --ring: var(--color-widget-text-secondary);
+    --chart-1: var(--color-chart-1);
+    --chart-2: var(--color-chart-2);
+    --chart-3: var(--color-chart-3);
+    --chart-4: var(--color-chart-4);
+    --chart-5: var(--color-chart-5);
+    --radius: 0.625rem;
+    --sidebar-background: var(--color-widget-bg-primary);
+    --sidebar-foreground: var(--color-widget-text-primary);
+    --sidebar-primary: var(--color-widget-text-primary);
+    --sidebar-primary-foreground: var(--color-widget-bg-primary);
+    --sidebar-accent: var(--color-widget-border);
+    --sidebar-accent-foreground: var(--color-widget-text-primary);
+    --sidebar-border: var(--color-widget-border);
+    --sidebar-ring: var(--color-widget-text-secondary);
   }
+
+  * {
+    border-color: var(--border);
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-widget-text-primary);
+  }
+
+  h3 {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-widget-text-secondary);
+  }
+
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1280px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1536px;
+    }
   }
 }
