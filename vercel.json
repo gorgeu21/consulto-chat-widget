@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/widget.js",
-      "destination": "/widget.js"
+      "destination": "/api/widget.js"
     },
     {
       "source": "/install.html",
-      "destination": "/install.html"
+      "destination": "/api/install.html"
     },
     {
       "source": "/consultant-widget-standalone.html",
-      "destination": "/consultant-widget-standalone.html"
+      "destination": "/api/consultant-widget-standalone.html"
     }
   ],
   "headers": [
