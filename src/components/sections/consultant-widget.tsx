@@ -80,13 +80,12 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
         chat24Script.async = true;
         chat24Script.src = `${window.chat24_url}${data["application.js"]}`;
         
-        chat24Script.onload = () => {
-          clearTimeout(timeout);
-          setTimeout(() => {
-            hideChat2DeskWidget();
-            setChat2deskStatus('ready');
-          }, 1000);
-        };
+          chat24Script.onload = () => {
+            clearTimeout(timeout);
+            setTimeout(() => {
+              setChat2deskStatus('ready');
+            }, 1000);
+          };
 
         chat24Script.onerror = () => {
           clearTimeout(timeout);
