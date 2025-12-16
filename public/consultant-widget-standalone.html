@@ -300,33 +300,26 @@
 
     .spinner { animation: spin 1s linear infinite; }
 
-      @media (max-width: 640px) {
-        .widget-content { padding: 16px 20px; }
-        .avatar { width: 64px; height: 64px; }
-        .widget-title { font-size: 18px; }
-        .messenger-button { padding: 12px; }
-        .messenger-icon { width: 40px; height: 40px; }
-        .messenger-text { font-size: 16px; }
-        .phone-number { font-size: 14px; }
-      }
-
-        #chat24-button {
-          opacity: 0 !important;
-          pointer-events: none !important;
-          position: fixed !important;
-          bottom: -9999px !important;
+        @media (max-width: 640px) {
+          .widget-content { padding: 16px 20px; }
+          .avatar { width: 64px; height: 64px; }
+          .widget-title { font-size: 18px; }
+          .messenger-button { padding: 12px; }
+          .messenger-icon { width: 40px; height: 40px; }
+          .messenger-text { font-size: 16px; }
+          .phone-number { font-size: 14px; }
         }
 
-        body {
-          min-height: 100vh;
-          background: transparent;
-          pointer-events: none;
-        }
+          body {
+            min-height: 100vh;
+            background: transparent;
+            pointer-events: none;
+          }
 
-        #consultantWidget,
-        #consultantWidget * {
-          pointer-events: auto;
-        }
+          #consultantWidget,
+          #consultantWidget * {
+            pointer-events: auto;
+          }
     </style>
   </head>
   <body>
