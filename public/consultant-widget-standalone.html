@@ -553,22 +553,28 @@
         }
       }
 
-        window.consultantWidgetToggle = toggleOpen;
-        window.consultantWidgetClose = handleClose;
-        window.consultantWidgetOpenChat = openChat2Desk;
-        
-        window.chat2deskDebug = function() {
-          console.log('=== ДИАГНОСТИКА CHAT2DESK ===');
-          console.log('Статус:', chat2deskStatus);
-          console.log('Инициализирован:', chat2deskInitialized);
-          console.log('window.chat2desk:', window.chat2desk);
-          console.log('Элементы DOM:');
-          console.log('  - #chat24-button:', document.getElementById('chat24-button'));
-          console.log('  - #chat24-iframe-container:', document.getElementById('chat24-iframe-container'));
-          console.log('  - [id^="chat24"]:', document.querySelectorAll('[id^="chat24"]'));
-          console.log('Попытка открыть чат вручную...');
-          document.dispatchEvent(new CustomEvent('popups:open'));
-        };
+          window.consultantWidgetToggle = toggleOpen;
+          window.consultantWidgetClose = handleClose;
+          window.consultantWidgetOpenChat = openChat2Desk;
+          
+          document.addEventListener('initialize_client', function() {
+            console.log('[Chat2Desk] 🟢 initialize_client: чат открыт клиентом, скрываем визитку');
+            isOpen = false;
+            updateWidget();
+          });
+          
+          window.chat2deskDebug = function() {
+            console.log('=== ДИАГНОСТИКА CHAT2DESK ===');
+            console.log('Статус:', chat2deskStatus);
+            console.log('Инициализирован:', chat2deskInitialized);
+            console.log('window.chat2desk:', window.chat2desk);
+            console.log('Элементы DOM:');
+            console.log('  - #chat24-button:', document.getElementById('chat24-button'));
+            console.log('  - #chat24-iframe-container:', document.getElementById('chat24-iframe-container'));
+            console.log('  - [id^="chat24"]:', document.querySelectorAll('[id^="chat24"]'));
+            console.log('Попытка открыть чат вручную...');
+            document.dispatchEvent(new CustomEvent('popups:open'));
+          };
 
           localStorage.removeItem(CLOSE_STORAGE_KEY);
           
