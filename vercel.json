@@ -1,18 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/widget.js",
-      "destination": "/api/widget.js"
-    },
-    {
-      "source": "/install.html",
-      "destination": "/api/install.html"
-    },
-    {
-      "source": "/consultant-widget-standalone.html",
-      "destination": "/api/consultant-widget-standalone.html"
-    }
-  ],
   "headers": [
     {
       "source": "/widget.js",
