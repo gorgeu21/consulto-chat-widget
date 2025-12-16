@@ -570,12 +570,20 @@
           document.dispatchEvent(new CustomEvent('popups:open'));
         };
 
-        if (!checkClosedState()) {
-          updateWidget();
-          initChat2Desk();
-        }
-        
-        console.log('💡 Для диагностики введите: chat2deskDebug()');
+          localStorage.removeItem(CLOSE_STORAGE_KEY);
+          
+          if (!checkClosedState()) {
+            updateWidget();
+            initChat2Desk();
+          }
+          
+          window.consultantWidgetReset = function() {
+            localStorage.removeItem(CLOSE_STORAGE_KEY);
+            location.reload();
+          };
+          
+          console.log('💡 Диагностика: chat2deskDebug()');
+          console.log('💡 Сброс виджета: consultantWidgetReset()');
       })();
     </script>
 </body>
