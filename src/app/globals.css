@@ -224,10 +224,8 @@
       }
     }
 
-    #chat24-iframe-container,
-    #chat24-button,
-    [id^="chat24"] {
-      display: none !important;
-      visibility: hidden !important;
-    }
+      #chat24-button {
+        display: none !important;
+        visibility: hidden !important;
+      }
 }
