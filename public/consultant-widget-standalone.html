@@ -307,22 +307,29 @@
       .phone-number { font-size: 14px; }
     }
 
-    #chat24-iframe-container,
-    #chat24-button,
-    [id^="chat24"] {
-      display: none !important;
-      visibility: hidden !important;
-    }
-  </style>
-</head>
-<body>
-  <div id="consultantWidget"></div>
+      #chat24-iframe-container,
+      #chat24-button,
+      [id^="chat24"] {
+        display: none !important;
+        visibility: hidden !important;
+      }
 
-  <script>
-    (function() {
-      var CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
-      var isOpen = false;
-      var chat2deskStatus = 'idle';
+      body {
+        min-height: 100vh;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="consultantWidget"></div>
+
+    <script>
+      (function() {
+        'use strict';
+        var CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
+        var isOpen = false;
+        var chat2deskStatus = 'idle';
+        var chat2deskInitialized = false;
 
       function checkClosedState() {
         try {
