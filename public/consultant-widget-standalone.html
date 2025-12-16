@@ -34,11 +34,16 @@
         to { transform: rotate(360deg); }
       }
 
-        .startBtn,
-        .startBtn__button {
-          display: none !important;
-          visibility: hidden !important;
-        }
+          .startBtn,
+          .startBtn__button,
+          [class*="startBtn"] {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: fixed !important;
+            bottom: -9999px !important;
+            right: -9999px !important;
+          }
 
         .fab-button {
         position: fixed;
