@@ -354,58 +354,72 @@
         return false;
       }
 
-        function initChat2Desk() {
-          if (chat2deskInitialized) return;
-          chat2deskInitialized = true;
-          
-          chat2deskStatus = 'loading';
-          updateWidget();
-
-          window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
-          window.chat24_url = "https://livechatv2.chat2desk.com";
-          window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
-          window.chat24_static_files_domain = "https://storage.chat2desk.com/";
-          window.lang = "ru";
-
-          var timeout = setTimeout(function() {
-            if (chat2deskStatus === 'loading') {
-              chat2deskStatus = 'error';
-              updateWidget();
-            }
-          }, 30000);
-
-          fetch(window.chat24_url + "/packs/manifest.json?nocache=" + new Date().getTime())
-          .then(function(res) { return res.json(); })
-          .then(function(data) {
-            var chat24Script = document.createElement("script");
-            chat24Script.type = "text/javascript";
-            chat24Script.async = true;
-            chat24Script.src = window.chat24_url + data["application.js"];
+          function initChat2Desk() {
+            if (chat2deskInitialized) return;
+            chat2deskInitialized = true;
             
-            chat24Script.onload = function() {
-              clearTimeout(timeout);
-              setTimeout(function() {
-                hideChat2DeskWidget();
-                chat2deskStatus = 'ready';
-                updateWidget();
-                console.log('Chat2Desk готов');
-              }, 1000);
-            };
+            console.log('[Chat2Desk] Начало инициализации');
+            chat2deskStatus = 'loading';
+            updateWidget();
 
-            chat24Script.onerror = function() {
+            window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
+            window.chat24_url = "https://livechatv2.chat2desk.com";
+            window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
+            window.chat24_static_files_domain = "https://storage.chat2desk.com/";
+            window.lang = "ru";
+
+            var timeout = setTimeout(function() {
+              if (chat2deskStatus === 'loading') {
+                console.error('[Chat2Desk] Таймаут загрузки (30 сек)');
+                chat2deskStatus = 'error';
+                updateWidget();
+              }
+            }, 30000);
+
+            console.log('[Chat2Desk] Загрузка manifest.json...');
+            fetch(window.chat24_url + "/packs/manifest.json?nocache=" + new Date().getTime())
+            .then(function(res) { 
+              console.log('[Chat2Desk] manifest.json загружен');
+              return res.json(); 
+            })
+            .then(function(data) {
+              console.log('[Chat2Desk] Загрузка application.js:', data["application.js"]);
+              var chat24Script = document.createElement("script");
+              chat24Script.type = "text/javascript";
+              chat24Script.async = true;
+              chat24Script.src = window.chat24_url + data["application.js"];
+              
+              chat24Script.onload = function() {
+                clearTimeout(timeout);
+                console.log('[Chat2Desk] application.js загружен');
+                
+                setTimeout(function() {
+                  chat2deskStatus = 'ready';
+                  updateWidget();
+                  console.log('[Chat2Desk] ✅ Инициализация завершена. Виджет готов.');
+                  console.log('[Chat2Desk] Проверка слушателей события "popups:open"...');
+                  
+                  var testEvent = new CustomEvent('popups:open');
+                  console.log('[Chat2Desk] Тестовое событие создано:', testEvent);
+                }, 2000);
+              };
+
+              chat24Script.onerror = function() {
+                clearTimeout(timeout);
+                console.error('[Chat2Desk] ❌ Ошибка загрузки application.js');
+                chat2deskStatus = 'error';
+                updateWidget();
+              };
+
+              document.body.appendChild(chat24Script);
+            })
+            .catch(function(err) {
               clearTimeout(timeout);
+              console.error('[Chat2Desk] ❌ Ошибка загрузки manifest.json:', err);
               chat2deskStatus = 'error';
               updateWidget();
-            };
-
-            document.body.appendChild(chat24Script);
-          })
-          .catch(function() {
-            clearTimeout(timeout);
-            chat2deskStatus = 'error';
-            updateWidget();
-          });
-      }
+            });
+        }
 
       function hideChat2DeskWidget() {
         var existingStyle = document.getElementById('chat2desk-hide-style');
