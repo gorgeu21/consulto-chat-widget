@@ -119,17 +119,13 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
     document.head.appendChild(style);
   };
 
-    const openChat2Desk = () => {
-      if (typeof window === 'undefined') return;
-      if (chat2deskStatus === 'ready' && window.chat2desk?.open) {
-        const hideStyle = document.getElementById('chat2desk-hide-style');
-        if (hideStyle) {
-          hideStyle.remove();
+      const openChat2Desk = () => {
+        if (typeof window === 'undefined') return;
+        if (chat2deskStatus === 'ready' && window.chat2desk?.open) {
+          setIsOpen(false);
+          window.chat2desk.open();
         }
-        setIsOpen(false);
-        window.chat2desk.open();
-      }
-    };
+      };
 
   const handleClose = () => {
     setIsOpen(false);
