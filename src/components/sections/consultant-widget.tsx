@@ -51,11 +51,10 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
 
   const initChat2Desk = () => {
     if (typeof window === 'undefined') return;
-    if (document.querySelector('script[src*="livechatv2.chat2desk.com"]')) {
-      setChat2deskStatus('ready');
-      hideChat2DeskWidget();
-      return;
-    }
+      if (document.querySelector('script[src*="livechatv2.chat2desk.com"]')) {
+        setChat2deskStatus('ready');
+        return;
+      }
 
     setChat2deskStatus('loading');
     
