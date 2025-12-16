@@ -553,15 +553,30 @@
         }
       }
 
-      window.consultantWidgetToggle = toggleOpen;
-      window.consultantWidgetClose = handleClose;
-      window.consultantWidgetOpenChat = openChat2Desk;
+        window.consultantWidgetToggle = toggleOpen;
+        window.consultantWidgetClose = handleClose;
+        window.consultantWidgetOpenChat = openChat2Desk;
+        
+        window.chat2deskDebug = function() {
+          console.log('=== ДИАГНОСТИКА CHAT2DESK ===');
+          console.log('Статус:', chat2deskStatus);
+          console.log('Инициализирован:', chat2deskInitialized);
+          console.log('window.chat2desk:', window.chat2desk);
+          console.log('Элементы DOM:');
+          console.log('  - #chat24-button:', document.getElementById('chat24-button'));
+          console.log('  - #chat24-iframe-container:', document.getElementById('chat24-iframe-container'));
+          console.log('  - [id^="chat24"]:', document.querySelectorAll('[id^="chat24"]'));
+          console.log('Попытка открыть чат вручную...');
+          document.dispatchEvent(new CustomEvent('popups:open'));
+        };
 
-      if (!checkClosedState()) {
-        updateWidget();
-        initChat2Desk();
-      }
-    })();
-  </script>
+        if (!checkClosedState()) {
+          updateWidget();
+          initChat2Desk();
+        }
+        
+        console.log('💡 Для диагностики введите: chat2deskDebug()');
+      })();
+    </script>
 </body>
 </html>
