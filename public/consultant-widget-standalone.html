@@ -34,24 +34,25 @@
       to { transform: rotate(360deg); }
     }
 
-    .fab-button {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9998;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background-color: #00A8E8;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      animation: fab-bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    }
+      .fab-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9998;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-color: #00A8E8;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        animation: fab-bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        pointer-events: auto;
+      }
 
     .fab-button:hover { transform: scale(1.1); }
 
