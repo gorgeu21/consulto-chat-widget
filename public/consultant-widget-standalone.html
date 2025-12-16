@@ -345,24 +345,27 @@
         return false;
       }
 
-      function initChat2Desk() {
-        chat2deskStatus = 'loading';
-        updateWidget();
+        function initChat2Desk() {
+          if (chat2deskInitialized) return;
+          chat2deskInitialized = true;
+          
+          chat2deskStatus = 'loading';
+          updateWidget();
 
-        window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
-        window.chat24_url = "https://livechatv2.chat2desk.com";
-        window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
-        window.chat24_static_files_domain = "https://storage.chat2desk.com/";
-        window.lang = "ru";
+          window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
+          window.chat24_url = "https://livechatv2.chat2desk.com";
+          window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
+          window.chat24_static_files_domain = "https://storage.chat2desk.com/";
+          window.lang = "ru";
 
-        var timeout = setTimeout(function() {
-          if (chat2deskStatus === 'loading') {
-            chat2deskStatus = 'error';
-            updateWidget();
-          }
-        }, 30000);
+          var timeout = setTimeout(function() {
+            if (chat2deskStatus === 'loading') {
+              chat2deskStatus = 'error';
+              updateWidget();
+            }
+          }, 30000);
 
-        fetch(window.chat24_url + "/packs/manifest.json?nocache=" + new Date().getTime())
+          fetch(window.chat24_url + "/packs/manifest.json?nocache=" + new Date().getTime())
           .then(function(res) { return res.json(); })
           .then(function(data) {
             var chat24Script = document.createElement("script");
