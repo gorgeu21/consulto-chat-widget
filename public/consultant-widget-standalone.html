@@ -558,9 +558,19 @@
           window.consultantWidgetOpenChat = openChat2Desk;
           
           document.addEventListener('initialize_client', function() {
-            console.log('[Chat2Desk] 🟢 initialize_client: чат открыт клиентом, скрываем визитку');
-            isOpen = false;
-            updateWidget();
+            console.log('[Chat2Desk] 🟢 initialize_client: чат открыт клиентом');
+            var overlay = document.querySelector('.overlay');
+            var card = document.querySelector('.widget-card');
+            if (overlay) overlay.style.display = 'none';
+            if (card) card.style.display = 'none';
+          });
+          
+          document.addEventListener('close_client', function() {
+            console.log('[Chat2Desk] 🔴 close_client: чат закрыт клиентом');
+            var overlay = document.querySelector('.overlay');
+            var card = document.querySelector('.widget-card');
+            if (overlay) overlay.style.display = '';
+            if (card) card.style.display = '';
           });
           
           window.chat2deskDebug = function() {
