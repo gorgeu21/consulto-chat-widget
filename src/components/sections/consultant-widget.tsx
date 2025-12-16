@@ -102,22 +102,7 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
       });
   };
 
-  const hideChat2DeskWidget = () => {
-    if (typeof document === 'undefined') return;
-    if (document.getElementById('chat2desk-hide-style')) return;
 
-    const style = document.createElement('style');
-    style.id = 'chat2desk-hide-style';
-    style.textContent = `
-      #chat24-iframe-container,
-      #chat24-button,
-      [id^="chat24"] {
-        display: none !important;
-        visibility: hidden !important;
-      }
-    `;
-    document.head.appendChild(style);
-  };
 
       const openChat2Desk = () => {
         if (typeof window === 'undefined') return;
