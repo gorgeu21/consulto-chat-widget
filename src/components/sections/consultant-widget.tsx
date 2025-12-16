@@ -49,56 +49,110 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
     initChat2Desk();
   }, []);
 
-  const initChat2Desk = () => {
-    if (typeof window === 'undefined') return;
-      if (document.querySelector('script[src*="livechatv2.chat2desk.com"]')) {
-        setChat2deskStatus('ready');
-        return;
-      }
+    const hideChat2DeskWidget = () => {
+      const style = document.createElement('style');
+      style.id = 'hide-chat2desk-widget';
+      style.textContent = `
+        /* Скрываем все элементы Chat2Desk */
+        [id^="chat2desk"], 
+        [class*="chat2desk"],
+        [class*="c2d-"],
+        div[style*="z-index: 2147483647"],
+        iframe[src*="chat2desk"],
+        .widget_open_button,
+        #widget_open_button,
+        [data-chat2desk] {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+          position: fixed !important;
+          left: -9999px !important;
+          top: -9999px !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+      `;
+      document.head.appendChild(style);
 
-    setChat2deskStatus('loading');
-    
-    window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
-    window.chat24_url = "https://livechatv2.chat2desk.com";
-    window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
-    window.chat24_static_files_domain = "https://storage.chat2desk.com/";
-    window.lang = "ru";
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const isChat2DeskElement = 
+                node.id?.includes('chat2desk') ||
+                node.className?.includes('chat2desk') ||
+                node.className?.includes('c2d-') ||
+                node.getAttribute('data-chat2desk') ||
+                (node.tagName === 'IFRAME' && node.getAttribute('src')?.includes('chat2desk')) ||
+                (node.style.zIndex === '2147483647');
 
-    const timeout = setTimeout(() => {
-      setChat2deskStatus('error');
-    }, 30000);
+              if (isChat2DeskElement) {
+                node.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; position: fixed !important; left: -9999px !important; top: -9999px !important; width: 0 !important; height: 0 !important;';
+              }
+            }
+          });
+        });
+      });
 
-    fetch(`${window.chat24_url}/packs/manifest.json?nocache=${new Date().getTime()}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Не удалось загрузить manifest');
-        return res.json();
-      })
-      .then(data => {
-        const chat24Script = document.createElement("script");
-        chat24Script.type = "text/javascript";
-        chat24Script.async = true;
-        chat24Script.src = `${window.chat24_url}${data["application.js"]}`;
-        
-          chat24Script.onload = () => {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    };
+
+    const initChat2Desk = () => {
+      if (typeof window === 'undefined') return;
+        if (document.querySelector('script[src*="livechatv2.chat2desk.com"]')) {
+          setChat2deskStatus('ready');
+          return;
+        }
+
+      hideChat2DeskWidget();
+
+      setChat2deskStatus('loading');
+      
+      window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
+      window.chat24_url = "https://livechatv2.chat2desk.com";
+      window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
+      window.chat24_static_files_domain = "https://storage.chat2desk.com/";
+      window.lang = "ru";
+
+      const timeout = setTimeout(() => {
+        setChat2deskStatus('error');
+      }, 30000);
+
+      fetch(`${window.chat24_url}/packs/manifest.json?nocache=${new Date().getTime()}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Не удалось загрузить manifest');
+          return res.json();
+        })
+        .then(data => {
+          const chat24Script = document.createElement("script");
+          chat24Script.type = "text/javascript";
+          chat24Script.async = true;
+          chat24Script.src = `${window.chat24_url}${data["application.js"]}`;
+          
+            chat24Script.onload = () => {
+              clearTimeout(timeout);
+              setTimeout(() => {
+                setChat2deskStatus('ready');
+              }, 1000);
+            };
+
+          chat24Script.onerror = () => {
             clearTimeout(timeout);
-            setTimeout(() => {
-              setChat2deskStatus('ready');
-            }, 1000);
+            setChat2deskStatus('error');
           };
 
-        chat24Script.onerror = () => {
+          document.body.appendChild(chat24Script);
+        })
+        .catch((error) => {
+          console.error('Ошибка загрузки Chat2Desk:', error);
           clearTimeout(timeout);
           setChat2deskStatus('error');
-        };
-
-        document.body.appendChild(chat24Script);
-      })
-      .catch((error) => {
-        console.error('Ошибка загрузки Chat2Desk:', error);
-        clearTimeout(timeout);
-        setChat2deskStatus('error');
-      });
-  };
+        });
+    };
 
 
 
