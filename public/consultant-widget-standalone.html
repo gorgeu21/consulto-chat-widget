@@ -421,47 +421,30 @@
             });
         }
 
-      function hideChat2DeskWidget() {
-        var existingStyle = document.getElementById('chat2desk-hide-style');
-        if (existingStyle) return;
-
-        var style = document.createElement('style');
-        style.id = 'chat2desk-hide-style';
-        style.textContent = '#chat24-iframe-container, #chat24-button, [id^="chat24"] { display: none !important; visibility: hidden !important; }';
-        document.head.appendChild(style);
-      }
-
       function openChat2Desk() {
-        console.log('openChat2Desk вызван, статус:', chat2deskStatus);
-        console.log('window.chat2desk:', window.chat2desk);
+        console.log('[Chat2Desk] 🔵 Попытка открыть чат. Статус:', chat2deskStatus);
         
-        if (chat2deskStatus === 'ready') {
-          var hideStyle = document.getElementById('chat2desk-hide-style');
-          if (hideStyle) {
-            console.log('Удаление стиля скрытия');
-            hideStyle.remove();
-          }
-          
-          setTimeout(function() {
-            var chatButton = document.getElementById('chat24-button');
-            var chatContainer = document.getElementById('chat24-iframe-container');
-            
-            console.log('chat24-button:', chatButton);
-            console.log('chat24-iframe-container:', chatContainer);
-            
-            if (window.chat2desk && typeof window.chat2desk.open === 'function') {
-              console.log('Вызов window.chat2desk.open()');
-              window.chat2desk.open();
-            } else if (chatButton) {
-              console.log('Клик по кнопке Chat2Desk');
-              chatButton.click();
-            } else {
-              console.error('Chat2Desk не найден');
-            }
-          }, 100);
-        } else {
-          console.warn('Chat2Desk не готов. Текущий статус:', chat2deskStatus);
+        if (chat2deskStatus !== 'ready') {
+          console.warn('[Chat2Desk] ⚠️ Виджет не готов. Ожидание инициализации...');
+          return;
         }
+        
+        console.log('[Chat2Desk] Отправка события "popups:open"');
+        document.dispatchEvent(new CustomEvent('popups:open'));
+        
+        setTimeout(function() {
+          var chatContainer = document.getElementById('chat24-iframe-container');
+          var chatButton = document.getElementById('chat24-button');
+          
+          console.log('[Chat2Desk] Проверка элементов после события:');
+          console.log('  - chat24-iframe-container:', chatContainer);
+          console.log('  - chat24-button:', chatButton);
+          
+          if (chatContainer) {
+            console.log('  - container display:', window.getComputedStyle(chatContainer).display);
+            console.log('  - container visibility:', window.getComputedStyle(chatContainer).visibility);
+          }
+        }, 500);
       }
 
       function handleClose() {
