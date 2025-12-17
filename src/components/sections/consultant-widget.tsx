@@ -156,13 +156,28 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
 
 
 
-      const openChat2Desk = () => {
-        if (typeof window === 'undefined') return;
-        if (chat2deskStatus === 'ready' && window.chat2desk?.open) {
+        const openChat2Desk = () => {
+          if (typeof window === 'undefined') return;
+          if (chat2deskStatus !== 'ready') return;
+          
           setIsOpen(false);
-          window.chat2desk.open();
-        }
-      };
+          
+          document.dispatchEvent(new CustomEvent('popups:open'));
+          
+          setTimeout(() => {
+            const chatContainer = document.getElementById('chat24-iframe-container');
+            if (chatContainer) {
+              chatContainer.style.display = 'block';
+              chatContainer.style.visibility = 'visible';
+              chatContainer.style.pointerEvents = 'auto';
+            }
+            
+            const chatButtons = document.querySelectorAll('.startBtn, .startBtn__button, button.startBtn__button, [class*="startBtn__button"]');
+            chatButtons.forEach((btn) => {
+              (btn as HTMLElement).style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+            });
+          }, 300);
+        };
 
   const handleClose = () => {
     setIsOpen(false);
