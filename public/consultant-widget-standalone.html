@@ -336,13 +336,40 @@
   <body>
     <div id="consultantWidget"></div>
 
-    <script>
-      (function() {
-        'use strict';
-        var CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
-        var isOpen = false;
-        var chat2deskStatus = 'idle';
-        var chat2deskInitialized = false;
+      <script>
+        (function() {
+          'use strict';
+          var CLOSE_STORAGE_KEY = 'consultantWidgetClosedUntil';
+          var isOpen = false;
+          var chat2deskStatus = 'idle';
+          var chat2deskInitialized = false;
+
+          var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.addedNodes.length) {
+                mutation.addedNodes.forEach(function(node) {
+                  if (node.nodeType === 1) {
+                    if (node.querySelector && node.querySelector('button.startBtn__button')) {
+                      var btn = node.querySelector('button.startBtn__button');
+                      btn.style.display = 'none !important';
+                      btn.style.visibility = 'hidden !important';
+                      console.log('[Consultant Widget] Chat2Desk button hidden');
+                    }
+                    if (node.classList && node.classList.contains('startBtn__button')) {
+                      node.style.display = 'none !important';
+                      node.style.visibility = 'hidden !important';
+                      console.log('[Consultant Widget] Chat2Desk button hidden (direct)');
+                    }
+                  }
+                });
+              }
+            });
+          });
+
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
 
       function checkClosedState() {
         try {
