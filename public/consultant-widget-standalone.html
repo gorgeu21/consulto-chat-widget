@@ -589,25 +589,53 @@
         }
       }
 
-          window.consultantWidgetToggle = toggleOpen;
-          window.consultantWidgetClose = handleClose;
-          window.consultantWidgetOpenChat = openChat2Desk;
-          
-          document.addEventListener('initialize_client', function() {
-            console.log('[Chat2Desk] 🟢 initialize_client: чат открыт клиентом');
-            var overlay = document.querySelector('.overlay');
-            var card = document.querySelector('.widget-card');
-            if (overlay) overlay.style.display = 'none';
-            if (card) card.style.display = 'none';
-          });
-          
-          document.addEventListener('close_client', function() {
-            console.log('[Chat2Desk] 🔴 close_client: чат закрыт клиентом');
-            var overlay = document.querySelector('.overlay');
-            var card = document.querySelector('.widget-card');
-            if (overlay) overlay.style.display = '';
-            if (card) card.style.display = '';
-          });
+            window.consultantWidgetToggle = toggleOpen;
+            window.consultantWidgetClose = handleClose;
+            window.consultantWidgetOpenChat = openChat2Desk;
+            
+            document.addEventListener('initialize_widget', function() {
+              console.log('[Chat2Desk] 📦 initialize_widget: виджет загружен');
+              setTimeout(function() {
+                var chatButtons = document.querySelectorAll('.startBtn, .startBtn__button, button.startBtn__button, [class*="startBtn"]');
+                chatButtons.forEach(function(btn) {
+                  btn.style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+                });
+                console.log('[Chat2Desk] ✅ Кнопки скрыты после загрузки:', chatButtons.length);
+              }, 500);
+            });
+            
+            document.addEventListener('initialize_client', function() {
+              console.log('[Chat2Desk] 🟢 initialize_client: окно чата открыто');
+              var fab = document.querySelector('.fab-button');
+              var overlay = document.querySelector('.overlay');
+              var card = document.querySelector('.widget-card');
+              if (fab) fab.style.display = 'none';
+              if (overlay) overlay.style.display = 'none';
+              if (card) card.style.display = 'none';
+              isOpen = false;
+            });
+            
+            var chatCloseObserver = new MutationObserver(function(mutations) {
+              var chatContainer = document.getElementById('chat24-iframe-container');
+              if (chatContainer) {
+                var display = window.getComputedStyle(chatContainer).display;
+                if (display === 'none') {
+                  console.log('[Chat2Desk] 🔴 Чат закрыт');
+                  var fab = document.querySelector('.fab-button');
+                  if (!fab) {
+                    isOpen = false;
+                    updateWidget();
+                  }
+                }
+              }
+            });
+            
+            setTimeout(function() {
+              var chatContainer = document.getElementById('chat24-iframe-container');
+              if (chatContainer) {
+                chatCloseObserver.observe(chatContainer, { attributes: true, attributeFilter: ['style'] });
+              }
+            }, 3000);
           
           window.chat2deskDebug = function() {
             console.log('=== ДИАГНОСТИКА CHAT2DESK ===');
