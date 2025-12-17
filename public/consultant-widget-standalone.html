@@ -34,16 +34,19 @@
         to { transform: rotate(360deg); }
       }
 
-          .startBtn,
-          .startBtn__button,
-          [class*="startBtn"] {
-            display: none !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            position: fixed !important;
-            bottom: -9999px !important;
-            right: -9999px !important;
-          }
+            .startBtn,
+            .startBtn__button,
+            button.startBtn__button,
+            [class*="startBtn"],
+            [id*="chat24"],
+            [class*="chat24"] {
+              display: none !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+              position: fixed !important;
+              bottom: -9999px !important;
+              right: -9999px !important;
+            }
 
         .fab-button {
         position: fixed;
