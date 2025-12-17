@@ -50,52 +50,51 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
     initChat2Desk();
   }, []);
 
-  const hideChat2DeskWidget = () => {
-    const style = document.createElement('style');
-    style.id = 'hide-chat2desk-widget';
-    style.textContent = `
-      .startBtn,
-      .startBtn__button,
-      button.startBtn__button,
-      [class*="startBtn"] {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        opacity: 0 !important;
-        position: fixed !important;
-        left: -9999px !important;
-        top: -9999px !important;
-      }
+    const hideChat2DeskWidget = () => {
+      const style = document.createElement('style');
+      style.id = 'hide-chat2desk-widget';
+      style.textContent = `
+        .startBtn,
+        .startBtn__button,
+        button.startBtn__button,
+        [class*="startBtn"],
+        #chat24-iframe-container,
+        [id*="chat24"],
+        [class*="chat24"] {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+          opacity: 0 !important;
+          position: fixed !important;
+          left: -9999px !important;
+          top: -9999px !important;
+        }
+      `;
+      document.head.appendChild(style);
 
-      #chat24-iframe-container {
-        pointer-events: auto !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node instanceof HTMLElement) {
-            if (node.querySelector && node.querySelector('button.startBtn__button')) {
-              const btn = node.querySelector('button.startBtn__button');
-              if (btn) {
-                (btn as HTMLElement).style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              if (node.id?.includes('chat24') || node.className?.toString().includes('startBtn') || node.className?.toString().includes('chat24')) {
+                node.style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+              }
+              if (node.querySelector) {
+                const chat24Elements = node.querySelectorAll('[id*="chat24"], [class*="chat24"], [class*="startBtn"]');
+                chat24Elements.forEach((el) => {
+                  (el as HTMLElement).style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+                });
               }
             }
-            if (node.classList && (node.classList.contains('startBtn__button') || node.classList.contains('startBtn'))) {
-              node.style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
-            }
-          }
+          });
         });
       });
-    });
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  };
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    };
 
   const initChat2Desk = () => {
     if (typeof window === 'undefined') return;
