@@ -150,28 +150,31 @@ export default function ConsultantWidget({ theme = 'dark' }: ConsultantWidgetPro
       });
   };
 
-  const openChat2Desk = () => {
-    if (typeof window === 'undefined') return;
-    if (chat2deskStatus !== 'ready') return;
-    
-    setIsOpen(false);
-    
-    document.dispatchEvent(new CustomEvent('popups:open'));
-    
-    setTimeout(() => {
-      const chatContainer = document.getElementById('chat24-iframe-container');
-      if (chatContainer) {
-        chatContainer.style.display = 'block';
-        chatContainer.style.visibility = 'visible';
-        chatContainer.style.pointerEvents = 'auto';
+    const openChat2Desk = () => {
+      if (typeof window === 'undefined') return;
+      if (chat2deskStatus !== 'ready') return;
+      
+      setIsOpen(false);
+      
+      const styleSheet = document.getElementById('hide-chat2desk-widget');
+      if (styleSheet) {
+        styleSheet.remove();
       }
       
-      const chatButtons = document.querySelectorAll('.startBtn, .startBtn__button, button.startBtn__button, [class*="startBtn__button"]');
-      chatButtons.forEach((btn) => {
-        (btn as HTMLElement).style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
-      });
-    }, 300);
-  };
+      document.dispatchEvent(new CustomEvent('popups:open'));
+      
+      setTimeout(() => {
+        const chatContainer = document.getElementById('chat24-iframe-container');
+        if (chatContainer) {
+          chatContainer.style.cssText = 'display: block !important; visibility: visible !important; pointer-events: auto !important; position: fixed !important; left: auto !important; top: auto !important; opacity: 1 !important;';
+        }
+        
+        const chatButtons = document.querySelectorAll('.startBtn, .startBtn__button, button.startBtn__button, [class*="startBtn__button"]');
+        chatButtons.forEach((btn) => {
+          (btn as HTMLElement).style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+        });
+      }, 300);
+    };
 
   const handleClose = () => {
     setIsOpen(false);
