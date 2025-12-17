@@ -393,11 +393,12 @@
             chat2deskStatus = 'loading';
             updateWidget();
 
-            window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
-            window.chat24_url = "https://livechatv2.chat2desk.com";
-            window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
-            window.chat24_static_files_domain = "https://storage.chat2desk.com/";
-            window.lang = "ru";
+              window.chat24_token = "904b449f7d66ed0b9657aa6892433165";
+              window.chat24_url = "https://livechatv2.chat2desk.com";
+              window.chat24_socket_url = "wss://livechatv2.chat2desk.com/widget_ws_new";
+              window.chat24_static_files_domain = "https://storage.chat2desk.com/";
+              window.chat24_start_hidden = true;
+              window.lang = "ru";
 
             var timeout = setTimeout(function() {
               if (chat2deskStatus === 'loading') {
